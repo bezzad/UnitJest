@@ -31,7 +31,8 @@
     "url": "https://github.com/bezzad/UnitJest/issues"
   },
   "homepage": "https://github.com/bezzad/UnitJest#readme",
-  "dependencies": {
+  "dependencies": {},
+  "devDependencies": {
     "jest": "^23.6.0"
   }
 }
