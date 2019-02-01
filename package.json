@@ -33,6 +33,9 @@
   "homepage": "https://github.com/bezzad/UnitJest#readme",
   "dependencies": {},
   "devDependencies": {
-    "jest": "^23.6.0"
+    "esprima": "^4.0.1",
+    "jest": "^23.6.0",
+    "styx": "0.0.8",
+    "viz.js": "^2.1.2"
   }
 }
