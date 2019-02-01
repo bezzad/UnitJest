@@ -39,6 +39,7 @@ var json = Styx.exportAsJson(flowProgram);
 let [flowGraph, name] = findFlowGraphAndNameForId(flowProgram, 1);
 var grapgviz = Styx.exportAsDot(flowGraph, name);
 
+// https://github.com/mdaines/viz.js/wiki/Usage
 // npm i viz.js --save-dev
 const Viz = require('viz.js');
 const { Module, render } = require('viz.js/full.render.js');
