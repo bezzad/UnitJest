@@ -1,8 +1,8 @@
 {
   "name": "unitjest",
   "version": "1.0.0",
-  "description": "Automation generate unit test for JavaScript ES5 by Jest Framework",
-  "main": "src/unittest.js",
+  "description": "Automation generate unit test for JavaScript (ES2015) by Jest Framework",
+  "main": "src/index.js",
   "scripts": {
     "test": "ujest"
   },
