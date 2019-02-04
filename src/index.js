@@ -31,29 +31,61 @@ function findFlowGraphAndNameForId(flowProgram, functionId) {
 var src = fs.readFileSync('./src/test.js', 'utf8');
 //--------------------------------------------------------------------------
 
+
 //----------------- parse source code to create ast ------------------------
 var ast = esprima.parse(src, { loc: true, range: false });
 //--------------------------------------------------------------------------
 
-// create control-flow-graph program
-var flowProgram = styx.parse(ast);
 
+//---------------- create flow program by styx parser ----------------------
+var flowProgram = styx.parse(ast);
+//--------------------------------------------------------------------------
+
+
+//------------- create control-flow-graph program by styx ------------------
 // $ styx testfile.js --format dot --graph 1
-let [flowGraph, name] = findFlowGraphAndNameForId(flowProgram, 1);
+var [flowGraph, name] = findFlowGraphAndNameForId(flowProgram, 1);
+//--------------------------------------------------------------------------
+
+
+//----------------- export as grapgviz DOT format --------------------------
+
 // var cfgJson = styx.exportAsJson(flowProgram); console.log("json", json);
-var cfg = styx.exportAsObject(flowProgram); console.log("cfg", cfg.functions[0]);
+var cfg = styx.exportAsObject(flowProgram);
+
+if (cfg && cfg.functions) {
+    cfg.functions.forEach(func => {
+        console.log(`Test function <${func.name}>`, func);
+        if (func.flowGraph && func.flowGraph.edges) {
+            func.flowGraph.edges.forEach(edge => {
+                console.log(`edge (${edge.type}) ${edge.from} --> ${edge.to}`);
+                if (edge.data) {
+                    if (edge.data.loc) {
+                        console.warn(`data.loc: ${JSON.stringify(edge.data.loc)}`);
+                    }
+                    else if (edge.data.argument && edge.data.argument.loc) {
+                        console.warn(`!(not) data.loc: ${JSON.stringify(edge.data.argument.loc)}`);
+                    }
+                }
+
+            });
+        }
+    });
+}
+
 var grapgviz = styx.exportAsDot(flowGraph, name); console.log("grapgviz", grapgviz);
 
 // https://github.com/mdaines/viz.js/wiki/Usage
 // npm i viz.js --save-dev
 const Viz = require('viz.js');
 const { Module, render } = require('viz.js/full.render.js');
-let viz = new Viz({ Module, render });
+var viz = new Viz({ Module, render });
 
 viz.renderString(grapgviz)
     .then(result => {
-        fs.writeFileSync("./output/cfg.svg", result);
-        console.log("CFG stored in test-cfg.svg");
+        let file = "./output/cfg.svg";
+        fs.writeFileSync(file, result);
+        console.log(`CFG stored at ${file}`);
     })
     .catch(error => {
         // Create a new Viz instance (@see Caveats page for more info)
