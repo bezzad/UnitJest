@@ -1,13 +1,32 @@
+//--------------------------------------------------------------------------
+//--------------------- Automation Unit Test Generator ---------------------
+//---------------------  B.Khosravifar & E.Estedlali   ---------------------
+//--------------------------------------------------------------------------
+
+
+//--------------------- read source code -----------------------------------
+const fs = require('fs');
+var src = fs.readFileSync('./src/test.js', 'utf8');
+//--------------------------------------------------------------------------
+
+
+//----------------- parse source code to create ast ------------------------
 // http://esprima.org/
 // npm install esprima --save-dev
 const esprima = require('esprima');
+var ast = esprima.parse(src, { loc: true, range: false });
+//--------------------------------------------------------------------------
 
+
+//---------------- create flow program by styx parser ----------------------
 // https://github.com/mariusschulz/styx
 // npm install styx --save-dev
 const styx = require('styx');
+var flowProgram = styx.parse(ast);
+//--------------------------------------------------------------------------
 
-const fs = require('fs');
 
+//------------- create control-flow-graph program by styx ------------------
 // https://github.com/mariusschulz/styx-cli/blob/master/src/index.js
 // exported from styx-cli
 function findFlowGraphAndNameForId(flowProgram, functionId) {
@@ -26,33 +45,19 @@ function findFlowGraphAndNameForId(flowProgram, functionId) {
     throw Error(`Couldn't find function with id ${functionId}`);
 }
 
-
-//--------------------- read source code -----------------------------------
-var src = fs.readFileSync('./src/test.js', 'utf8');
-//--------------------------------------------------------------------------
-
-
-//----------------- parse source code to create ast ------------------------
-var ast = esprima.parse(src, { loc: true, range: false });
-//--------------------------------------------------------------------------
-
-
-//---------------- create flow program by styx parser ----------------------
-var flowProgram = styx.parse(ast);
-//--------------------------------------------------------------------------
-
-
-//------------- create control-flow-graph program by styx ------------------
 // $ styx testfile.js --format dot --graph 1
 var [flowGraph, name] = findFlowGraphAndNameForId(flowProgram, 1);
 //--------------------------------------------------------------------------
 
 
 //----------------- export as grapgviz DOT format --------------------------
-
 // var cfgJson = styx.exportAsJson(flowProgram); console.log("json", json);
 var cfg = styx.exportAsObject(flowProgram);
+var grapgviz = styx.exportAsDot(flowGraph, name);
+//--------------------------------------------------------------------------
 
+
+//------------------ analyze CFG by code location --------------------------
 if (cfg && cfg.functions) {
     cfg.functions.forEach(func => {
         console.log(`Test function <${func.name}>`, func);
@@ -72,9 +77,10 @@ if (cfg && cfg.functions) {
         }
     });
 }
+//--------------------------------------------------------------------------
 
-var grapgviz = styx.exportAsDot(flowGraph, name); console.log("grapgviz", grapgviz);
 
+//---------------------- visualize CFG as .svg format ----------------------
 // https://github.com/mdaines/viz.js/wiki/Usage
 // npm i viz.js --save-dev
 const Viz = require('viz.js');
@@ -94,3 +100,4 @@ viz.renderString(grapgviz)
         // Possibly display the error
         console.error(error);
     });
+//--------------------------------------------------------------------------
