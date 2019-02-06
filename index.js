@@ -1,12 +1,14 @@
-//--------------------------------------------------------------------------
-//--------------------- Automation Unit Test Generator ---------------------
-//---------------------  B.Khosravifar & E.Estedlali   ---------------------
-//--------------------------------------------------------------------------
+/*--------------------------------------------------------------------------
+ *--------------------- Automation Unit Test Generator ---------------------
+ *---------------------  B.Khosravifar & E.Estedlali   ---------------------
+ *--------------------------------------------------------------------------
+ */
 
-
+ 
 //--------------------- read source code -----------------------------------
 const fs = require('fs');
-var src = fs.readFileSync('./src/test.js', 'utf8');
+// var src = fs.readFileSync('./src/tests/test.js', 'utf8');
+var src = fs.readFileSync('./src/samples/complex.js', 'utf8');
 //--------------------------------------------------------------------------
 
 
@@ -14,7 +16,7 @@ var src = fs.readFileSync('./src/test.js', 'utf8');
 // http://esprima.org/
 // npm install esprima --save-dev
 const esprima = require('esprima');
-var ast = esprima.parse(src, { loc: true, range: false });
+var ast = esprima.parse(src, { loc: true, range: true, comment: true });
 //--------------------------------------------------------------------------
 
 
@@ -51,32 +53,8 @@ var [flowGraph, name] = findFlowGraphAndNameForId(flowProgram, 1);
 
 
 //----------------- export as grapgviz DOT format --------------------------
-// var cfgJson = styx.exportAsJson(flowProgram); console.log("json", json);
-var cfg = styx.exportAsObject(flowProgram);
+var cfgObj = styx.exportAsObject(flowProgram);
 var grapgviz = styx.exportAsDot(flowGraph, name);
-//--------------------------------------------------------------------------
-
-
-//------------------ analyze CFG by code location --------------------------
-if (cfg && cfg.functions) {
-    cfg.functions.forEach(func => {
-        console.log(`Test function <${func.name}>`, func);
-        if (func.flowGraph && func.flowGraph.edges) {
-            func.flowGraph.edges.forEach(edge => {
-                console.log(`edge (${edge.type}) ${edge.from} --> ${edge.to}`);
-                if (edge.data) {
-                    if (edge.data.loc) {
-                        console.warn(`data.loc: ${JSON.stringify(edge.data.loc)}`);
-                    }
-                    else if (edge.data.argument && edge.data.argument.loc) {
-                        console.warn(`!(not) data.loc: ${JSON.stringify(edge.data.argument.loc)}`);
-                    }
-                }
-
-            });
-        }
-    });
-}
 //--------------------------------------------------------------------------
 
 
@@ -100,4 +78,11 @@ viz.renderString(grapgviz)
         // Possibly display the error
         console.error(error);
     });
+//--------------------------------------------------------------------------
+
+
+//------------------------ post process source codes -----------------------
+const p = require('./src/post.process.js');
+var source = p.postprocess(src, ast, cfgObj);
+fs.writeFileSync('./src/samples/complex.formatted.js', source);
 //--------------------------------------------------------------------------
