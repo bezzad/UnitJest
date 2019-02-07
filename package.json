@@ -1,10 +1,10 @@
 {
   "name": "unitjest",
-  "version": "1.0.0",
-  "description": "Automation generate unit test for JavaScript ES5 by Jest Framework",
-  "main": "src/unittest.js",
+  "version": "1.0.1",
+  "description": "Automation generate unit test for JavaScript (ES2015) by Jest Framework",
+  "main": "./index.js",
   "scripts": {
-    "test": "ujest"
+    "test": "jest.test"
   },
   "repository": {
     "type": "git",
@@ -33,6 +33,7 @@
   "homepage": "https://github.com/bezzad/UnitJest#readme",
   "dependencies": {},
   "devDependencies": {
+    "escodegen": "^1.11.0",
     "esprima": "^4.0.1",
     "jest": "^23.6.0",
     "styx": "0.0.8",
