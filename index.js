@@ -5,9 +5,14 @@
  */
 
 
+const filePath = "./test-samples/complex.js";
+const fileName = filePath.substring(filePath.lastIndexOf('/') + 1, filePath.lastIndexOf('.'));
+const fileExt = filePath.substring(filePath.lastIndexOf('.') + 1);
+
+
 //--------------------- read source code -----------------------------------
 const fs = require('fs');
-var src = fs.readFileSync('./test-samples/complex.js', 'utf8');
+var src = fs.readFileSync(filePath, 'utf8');
 //--------------------------------------------------------------------------
 
 
@@ -15,8 +20,16 @@ var src = fs.readFileSync('./test-samples/complex.js', 'utf8');
 // http://esprima.org/
 // npm install esprima --save-dev
 const esprima = require('esprima');
-var ast = esprima.parse(src, { loc: true, range: true, comment: true });
+var ast = esprima.parse(src); // generate AST with esprima
 //--------------------------------------------------------------------------
+
+
+// -------------------- preprocess and regenerate code ---------------------
+// https://github.com/estools/escodegen
+const escodegen = require('escodegen');
+src = escodegen.generate(ast);
+ast = esprima.parse(src, { loc: true, range: true, comment: true });
+//-------------------------------------------------------------------------
 
 
 //---------------- create flow program by styx parser ----------------------
@@ -53,7 +66,7 @@ var [flowGraph, name] = findFlowGraphAndNameForId(flowProgram, 1);
 
 //----------------- export as grapgviz DOT format --------------------------
 var cfgObj = styx.exportAsObject(flowProgram);
-var grapgviz = styx.exportAsDot(flowGraph, name);
+var graphviz = styx.exportAsDot(flowGraph, name);
 //--------------------------------------------------------------------------
 
 
@@ -64,7 +77,7 @@ const Viz = require('viz.js');
 const { Module, render } = require('viz.js/full.render.js');
 var viz = new Viz({ Module, render });
 
-viz.renderString(grapgviz)
+viz.renderString(graphviz)
     .then(result => {
         let file = "./output/cfg.svg";
         fs.writeFileSync(file, result);
@@ -80,14 +93,15 @@ viz.renderString(grapgviz)
 //--------------------------------------------------------------------------
 
 
-//------------------------ post process source codes -----------------------
-const p = require('./src/post.process.js');
-var source = p.postprocess(src, ast, cfgObj);
-fs.writeFileSync('./output/complex.formatted.js', source);
+//-------------- modify AST by injecting extra instrumenting code --------------
+const ins = require('./src/instrumentor.js');
+var source = ins.instrument(src, ast, cfgObj);
+var outPath = `./output/${fileName}.instrumented.${fileExt}`;
+fs.writeFileSync(outPath, source);
 //--------------------------------------------------------------------------
 
 
 
 
-
+console.log("END");
 // $ jest test.js --collectCoverage
