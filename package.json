@@ -1,42 +1,42 @@
 {
-  "name": "unitjest",
-  "version": "1.0.1",
-  "description": "Automation generate unit test for JavaScript (ES2015) by Jest Framework",
-  "main": "./index.js",
-  "scripts": {
-    "test": "jest.test"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/bezzad/UnitJest.git"
-  },
-  "keywords": [
-    "unit-testing",
-    "jest",
-    "generate-unit-test",
-    "javascript",
-    "test-code"
-  ],
-  "author": {
-    "name": "Behzad Khosravifar",
-    "email": "behzad.khosravifar@gmail.com",
-    "url": "https://bezzad.github.io/"
-  },
-  "contributors": [
-    "Behzad Khosravifar <behzad.khosravifar@gmail.com> (https://bezzad.github.io/)",
-    "Elham Estedlali <e.estedlali@gmail.com> (https://github.com/elhamest)"
-  ],
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/bezzad/UnitJest/issues"
-  },
-  "homepage": "https://github.com/bezzad/UnitJest#readme",
-  "dependencies": {},
-  "devDependencies": {
-    "escodegen": "^1.11.0",
-    "esprima": "^4.0.1",
-    "jest": "^23.6.0",
-    "styx": "0.0.8",
-    "viz.js": "^2.1.2"
-  }
+    "name": "unitjest",
+    "version": "1.0.1",
+    "description": "Automation generate unit test for JavaScript (ES2015) by Jest Framework",
+    "main": "./index.js",
+    "scripts": {
+        "test": "jest test"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/bezzad/UnitJest.git"
+    },
+    "keywords": [
+        "unit-testing",
+        "jest",
+        "generate-unit-test",
+        "javascript",
+        "test-code"
+    ],
+    "author": {
+        "name": "Behzad Khosravifar",
+        "email": "behzad.khosravifar@gmail.com",
+        "url": "https://bezzad.github.io/"
+    },
+    "contributors": [
+        "Behzad Khosravifar <behzad.khosravifar@gmail.com> (https://bezzad.github.io/)",
+        "Elham Estedlali <e.estedlali@gmail.com> (https://github.com/elhamest)"
+    ],
+    "license": "MIT",
+    "bugs": {
+        "url": "https://github.com/bezzad/UnitJest/issues"
+    },
+    "homepage": "https://github.com/bezzad/UnitJest#readme",
+    "dependencies": {},
+    "devDependencies": {
+        "escodegen": "^1.11.0",
+        "esprima": "^4.0.1",
+        "jest": "^23.6.0",
+        "styx": "0.0.8",
+        "viz.js": "^2.1.2"
+    }
 }
