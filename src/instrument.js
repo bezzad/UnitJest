@@ -2,7 +2,7 @@
 
 const identifiers = require('javascript-idents').all
 const walk = require('estraverse').replace
-const _ = require('./ast-helpers')
+const helper = require('./ast-helpers')
 
 
 
@@ -21,7 +21,6 @@ const unusedName = (identifiers) => {
 }
 
 
-
 const instrument = (code, ast) => {
 	const source = (node) => code.slice(node.range[0], node.range[1])
 
@@ -37,9 +36,9 @@ const instrument = (code, ast) => {
 			const start = {line: n.loc.start.line - 1, column: n.loc.start.column}
 			const end = {line: n.loc.end.line - 1, column: n.loc.end.column}
 
-			if (_.isPrimitiveExpression(n)) {
+			if (helper.isPrimitiveExpression(n)) {
 				expressions[i] = {start, end, code: source(n)}
-				n = _.call(_.identifier(nameOfSpy), [n, _.literal(i)])
+				n = helper.call(helper.identifier(nameOfSpy), [n, helper.literal(i)])
 				i++
 			}
 
