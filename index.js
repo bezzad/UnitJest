@@ -7,7 +7,7 @@
 
 //--------------------- read source code -----------------------------------
 const fs = require('fs');
-var src = fs.readFileSync('./test-samples/complex.js', 'utf8');
+var src = fs.readFileSync('./test-samples/fact.js', 'utf8');
 //--------------------------------------------------------------------------
 
 
@@ -63,7 +63,7 @@ var grapgviz = styx.exportAsDot(flowGraph, name);
 const Viz = require('viz.js');
 const { Module, render } = require('viz.js/full.render.js');
 var viz = new Viz({ Module, render });
-
+console.log("graphviz.doc")
 viz.renderString(grapgviz)
     .then(result => {
         let file = "./output/cfg.svg";
