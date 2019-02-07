@@ -1,7 +1,7 @@
 {
   "name": "unitjest",
   "version": "1.0.1",
-  "description": "Automation generate unit test for JavaScript (ES2015) by Jest Framework",
+  "description": "Automation unit test generation in JavaScript (ES2015) by Jest Framework",
   "main": "./index.js",
   "scripts": {
     "test": "jest.test"
@@ -18,7 +18,7 @@
     "test-code"
   ],
   "author": {
-    "name": "Behzad Khosravifar",
+    "name": "bezzad",
     "email": "behzad.khosravifar@gmail.com",
     "url": "https://bezzad.github.io/"
   },
