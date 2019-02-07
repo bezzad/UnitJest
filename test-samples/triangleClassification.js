@@ -15,5 +15,4 @@ function triangleClassification(x, y, z) {
         return "Not a triangle";
     }
 }
-
-exports.triangleClassification = triangleClassification;
+module.exports = triangleClassification;

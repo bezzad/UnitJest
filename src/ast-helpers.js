@@ -48,7 +48,6 @@ const object = (props) => ({
 module.exports = {
 	isNamedCallExpression,
 	isPrimitiveExpression,
-
 	identifier,
 	literal,
 	declaration,

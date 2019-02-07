@@ -6,4 +6,4 @@ function fact(num) {
     } while (num >= 1);
     return fact;
 }
-exports.fact = fact;
+module.exports = fact;

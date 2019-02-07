@@ -17,3 +17,4 @@ function fib(i) {
             };
     };
 }; 
+module.exports = fib;
