@@ -7,8 +7,7 @@
 
 //--------------------- read source code -----------------------------------
 const fs = require('fs');
-// var src = fs.readFileSync('./src/tests/test.js', 'utf8');
-var src = fs.readFileSync('./src/samples/complex.js', 'utf8');
+var src = fs.readFileSync('./test-samples/complex.js', 'utf8');
 //--------------------------------------------------------------------------
 
 

@@ -1,4 +1,4 @@
-var f = require("./samples/fact.js");
+var f = require("../test-samples/fact.js");
 
 test('fact 0 to equal 1', () => {
     expect(f.fact(0)).toBe(1);
