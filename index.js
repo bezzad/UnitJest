@@ -4,7 +4,7 @@
  *--------------------------------------------------------------------------
  */
 
- 
+
 //--------------------- read source code -----------------------------------
 const fs = require('fs');
 // var src = fs.readFileSync('./src/tests/test.js', 'utf8');
@@ -84,5 +84,11 @@ viz.renderString(grapgviz)
 //------------------------ post process source codes -----------------------
 const p = require('./src/post.process.js');
 var source = p.postprocess(src, ast, cfgObj);
-fs.writeFileSync('./src/samples/complex.formatted.js', source);
+fs.writeFileSync('./output/complex.formatted.js', source);
 //--------------------------------------------------------------------------
+
+
+
+
+
+// $ jest test.js --collectCoverage
