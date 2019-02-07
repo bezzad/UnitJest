@@ -5,7 +5,7 @@
  */
 
 
-const filePath = "./test-samples/complex.js";
+const filePath = "./test-samples/fact.js";
 const fileName = filePath.substring(filePath.lastIndexOf('/') + 1, filePath.lastIndexOf('.'));
 const fileExt = filePath.substring(filePath.lastIndexOf('.') + 1);
 
