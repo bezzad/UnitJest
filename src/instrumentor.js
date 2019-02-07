@@ -22,8 +22,8 @@ exports.instrument = function (src, ast, cfgObj) {
     const esprima = require('esprima');
 
     //------------------ analyze CFG by code location --------------------------
-    const c = require("./cfg");
-    var cfg = new c.Cfg().parseStyx(cfgObj);
+    const CFG = require("./cfg");
+    var cfg = new CFG().parseStyx(cfgObj);
     //--------------------------------------------------------------------------
 
     // var tokens = esprima.tokenize(src, { loc: true, range: true, comment: true });

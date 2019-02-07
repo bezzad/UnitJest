@@ -34,7 +34,7 @@ class Node {
     get isEndNode() { return this.type == "SuccessExit" }
 }
 
-exports.Cfg = class Cfg {
+class Cfg {
     constructor() {
         this.id = -1;
         this.func = "";
@@ -111,3 +111,5 @@ exports.Cfg = class Cfg {
         return Object.keys(this.nodes);
     }
 }
+
+module.exports = Cfg;

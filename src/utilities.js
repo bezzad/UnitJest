@@ -1,4 +1,4 @@
-exports.StopWatch = class StopWatch {
+class StopWatch {
     static start() {
         this.startTime = new Date().getTime();
     }
@@ -12,7 +12,7 @@ exports.StopWatch = class StopWatch {
     }
 }
 
-exports.Rand = class Random {
+class Random {
     constructor(min, max) {
         this.min = min || 0;
         this.max = max || 0;
@@ -25,3 +25,5 @@ exports.Rand = class Random {
         return this.prev;
     };
 }
+
+module.exports = { Random, StopWatch };
