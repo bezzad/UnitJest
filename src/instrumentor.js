@@ -1,6 +1,6 @@
 exports.instrument = function (src, ast, cfgObj) {
 
-    var Instrument = require("./instrument2");
+    var Instrument = require("./instrument");
     var { ast, expressions, nameOfSpy } = Instrument(src, ast);
 
     const escodegen = require('escodegen');
