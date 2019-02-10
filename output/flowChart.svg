@@ -1,115 +1,178 @@
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
                 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" 
-                width="278" height="468" shape-rendering="optimizeSpeed">
+                width="281" height="659" shape-rendering="optimizeSpeed">
                 
             <g>
                 <rect x="50" y="80"
-            width="190.4" height="30"
+            width="206" height="30"
             style="fill:#a5d6a7; stroke:#444; stroke-width:1" />
                     
                 <line x1="60" y1="80" x2="60" y2="110"
                 style="fill:#a5d6a7; stroke:#444; stroke-width:1" />
-                <line x1="230.4" y1="80" x2="230.4" y2="110"
+                <line x1="246" y1="80" x2="246" y2="110"
                 style="fill:#a5d6a7; stroke:#444; stroke-width:1" />
              
-                <title>function fact(num)</title>
+                <title>fact = function(num)</title>
             <text x="75" y="100"
                 font-family="monospace" font-size="13" fill="#222">
-                <tspan x="75" y="100">function fact(num)</tspan>
+                <tspan x="75" y="100">fact = function(num)</tspan>
+            </text>
+                
+            </g><g>
+            <rect x="117" y="143.5"
+            width="130.2" height="30"
+            rx="3" ry="3"
+            style="fill:#ce93d8; stroke:#444; stroke-width:1" />                
+            <polygon points="87,158.5 117,128.5 147,158.5 117,188.5"
+            style="fill:#ce93d8; stroke:#444; stroke-width:1" />
+            <title>(num &lt; 0)</title>
+            <text x="162" y="163.5"
+                font-family="monospace" font-size="13" fill="#222">
+                <tspan x="162" y="163.5">(num &lt; 0)</tspan>
+            </text>
+            
+            <text x="109.2" y="163.5"
+        font-family="monospace" font-size="13" fill="#222">if</text> <text x="124.8" y="190.45"
+        font-family="monospace" font-size="13" fill="#222">+</text> 
+        </g>
+            <g>
+                <rect x="137" y="198.5"
+            width="92.4" height="30"
+            rx="3" ry="3"
+            style="fill:#90caf9; stroke:#444; stroke-width:1" />
+                
+                <line x1="229.4" y1="208.5" x2="234.4" y2="208.5"
+                style="fill:#a5d6a7; stroke:#444; stroke-width:1" />
+                
+                <line x1="229.4" y1="218.5" x2="234.4" y2="218.5"
+                style="fill:#a5d6a7; stroke:#444; stroke-width:1" />
+
+                <path d="M234.4, 202.5 L250.4, 213.5 L234.4, 224.5 Z" 
+        fill="#a5d6a7" stroke="#444" stroke-width="1" />
+                             
+                <title>return 0</title>
+            <text x="152" y="218.5"
+                font-family="monospace" font-size="13" fill="#222">
+                <tspan x="152" y="218.5">return 0</tspan>
+            </text>
+                
+            </g><g>
+            <rect x="117" y="263.5"
+            width="138" height="30"
+            rx="3" ry="3"
+            style="fill:#ce93d8; stroke:#444; stroke-width:1" />                
+            <polygon points="87,278.5 117,248.5 147,278.5 117,308.5"
+            style="fill:#ce93d8; stroke:#444; stroke-width:1" />
+            <title>(num == 0)</title>
+            <text x="162" y="283.5"
+                font-family="monospace" font-size="13" fill="#222">
+                <tspan x="162" y="283.5">(num == 0)</tspan>
+            </text>
+            
+            <text x="109.2" y="283.5"
+        font-family="monospace" font-size="13" fill="#222">if</text> <text x="124.8" y="310.45"
+        font-family="monospace" font-size="13" fill="#222">+</text> 
+        </g>
+            <g>
+                <rect x="137" y="318.5"
+            width="92.4" height="30"
+            rx="3" ry="3"
+            style="fill:#90caf9; stroke:#444; stroke-width:1" />
+                
+                <line x1="229.4" y1="328.5" x2="234.4" y2="328.5"
+                style="fill:#a5d6a7; stroke:#444; stroke-width:1" />
+                
+                <line x1="229.4" y1="338.5" x2="234.4" y2="338.5"
+                style="fill:#a5d6a7; stroke:#444; stroke-width:1" />
+
+                <path d="M234.4, 322.5 L250.4, 333.5 L234.4, 344.5 Z" 
+        fill="#a5d6a7" stroke="#444" stroke-width="1" />
+                             
+                <title>return 1</title>
+            <text x="152" y="338.5"
+                font-family="monospace" font-size="13" fill="#222">
+                <tspan x="152" y="338.5">return 1</tspan>
             </text>
                 
             </g>
                 <g>
-                   <rect x="87" y="128.5"
+                   <rect x="87" y="368.5"
             width="123.6" height="30"
             rx="3" ry="3"
             style="fill:#90caf9; stroke:#444; stroke-width:1" />
                    <title>let fact = 1</title>
-            <text x="102" y="148.5"
+            <text x="102" y="388.5"
                 font-family="monospace" font-size="13" fill="#222">
-                <tspan x="102" y="148.5">let fact = 1</tspan>
+                <tspan x="102" y="388.5">let fact = 1</tspan>
             </text>
                    
                    
                 </g><g>
 
-            <rect x="117" y="212"
+            <rect x="117" y="452"
             width="122.4" height="30"
             rx="3" ry="3"
             style="fill:#b39ddb; stroke:#444; stroke-width:1" />
-            <polygon points="87,227 117,197 147,227 117,257"
+            <polygon points="87,467 117,437 147,467 117,497"
             style="fill:#b39ddb; stroke:#444; stroke-width:1" />
                 
             <title>num &gt;= 1</title>
-            <text x="162" y="232"
+            <text x="162" y="472"
                 font-family="monospace" font-size="13" fill="#222">
-                <tspan x="162" y="232">num &gt;= 1</tspan>
+                <tspan x="162" y="472">num &gt;= 1</tspan>
             </text>
             
-            <text x="97.5" y="232"
+            <text x="97.5" y="472"
         font-family="monospace" font-size="13" fill="#222">while</text>
         </g>
                 <g>
-                   <rect x="137" y="267"
+                   <rect x="137" y="507"
             width="115.8" height="30"
             rx="3" ry="3"
             style="fill:#90caf9; stroke:#444; stroke-width:1" />
                    <title>fact *= num</title>
-            <text x="152" y="287"
+            <text x="152" y="527"
                 font-family="monospace" font-size="13" fill="#222">
-                <tspan x="152" y="287">fact *= num</tspan>
+                <tspan x="152" y="527">fact *= num</tspan>
             </text>
                    
                    
                 </g>
                 <g>
-                   <rect x="137" y="315.5"
+                   <rect x="137" y="555.5"
             width="92.4" height="30"
             rx="3" ry="3"
             style="fill:#90caf9; stroke:#444; stroke-width:1" />
                    <title>num -= 1</title>
-            <text x="152" y="335.5"
+            <text x="152" y="575.5"
                 font-family="monospace" font-size="13" fill="#222">
-                <tspan x="152" y="335.5">num -= 1</tspan>
+                <tspan x="152" y="575.5">num -= 1</tspan>
             </text>
                    
                    
                 </g>
             <g>
-                <rect x="87" y="364"
+                <rect x="87" y="604"
             width="115.80000000000001" height="30"
             rx="3" ry="3"
             style="fill:#90caf9; stroke:#444; stroke-width:1" />
                 
-                <line x1="202.8" y1="374" x2="207.8" y2="374"
+                <line x1="202.8" y1="614" x2="207.8" y2="614"
                 style="fill:#a5d6a7; stroke:#444; stroke-width:1" />
                 
-                <line x1="202.8" y1="384" x2="207.8" y2="384"
+                <line x1="202.8" y1="624" x2="207.8" y2="624"
                 style="fill:#a5d6a7; stroke:#444; stroke-width:1" />
 
-                <path d="M207.8, 368 L223.8, 379 L207.8, 390 Z" 
+                <path d="M207.8, 608 L223.8, 619 L207.8, 630 Z" 
         fill="#a5d6a7" stroke="#444" stroke-width="1" />
                              
                 <title>return fact</title>
-            <text x="102" y="384"
+            <text x="102" y="624"
                 font-family="monospace" font-size="13" fill="#222">
-                <tspan x="102" y="384">return fact</tspan>
+                <tspan x="102" y="624">return fact</tspan>
             </text>
                 
             </g>
-                <g>
-                   <rect x="50" y="412.5"
-            width="193.79999999999998" height="30"
-            rx="3" ry="3"
-            style="fill:#90caf9; stroke:#444; stroke-width:1" />
-                   <title>module.exports = fact</title>
-            <text x="65" y="432.5"
-                font-family="monospace" font-size="13" fill="#222">
-                <tspan x="65" y="432.5">module.exports = fact</tspan>
-            </text>
-                   
-                   
-                </g>
             <g>
                <rect x="25" y="13.75"
             width="216.6" height="24"
@@ -131,63 +194,87 @@
         fill="#333" />
             </g>
             <g>
-               <path d="M68.5, 110 L68.5 139.5 Q68.5 143.5
-                72.5 143.5
-                L79 143.5 "
+               <path d="M68.5, 110 L68.5 154.5 Q68.5 158.5
+                72.5 158.5
+                L79 158.5 "
         style="fill:none; stroke:#444; stroke-width:1" />
-               <path d="M79, 140.5 L87, 143.5 L79, 146.5 Z" 
+               <path d="M79, 155.5 L87, 158.5 L79, 161.5 Z" 
         fill="#333" />
             </g>
             <g>
-               <path d="M68.5, 110 L68.5 223 Q68.5 227
-                72.5 227
-                L79 227 "
+               <path d="M117, 188.5 L117 209.5 Q117 213.5
+                121 213.5
+                L129 213.5 "
         style="fill:none; stroke:#444; stroke-width:1" />
-               <path d="M79, 224 L87, 227 L79, 230 Z" 
+               <path d="M129, 210.5 L137, 213.5 L129, 216.5 Z" 
         fill="#333" />
             </g>
             <g>
-               <path d="M117, 257 L117 278 Q117 282
-                121 282
-                L129 282 "
+               <path d="M68.5, 110 L68.5 274.5 Q68.5 278.5
+                72.5 278.5
+                L79 278.5 "
         style="fill:none; stroke:#444; stroke-width:1" />
-               <path d="M129, 279 L137, 282 L129, 285 Z" 
+               <path d="M79, 275.5 L87, 278.5 L79, 281.5 Z" 
         fill="#333" />
             </g>
             <g>
-               <path d="M117, 257 L117 326.5 Q117 330.5
-                121 330.5
-                L129 330.5 "
+               <path d="M117, 308.5 L117 329.5 Q117 333.5
+                121 333.5
+                L129 333.5 "
         style="fill:none; stroke:#444; stroke-width:1" />
-               <path d="M129, 327.5 L137, 330.5 L129, 333.5 Z" 
+               <path d="M129, 330.5 L137, 333.5 L129, 336.5 Z" 
         fill="#333" />
             </g>
             <g>
-               <path d="M229.4, 330.5 L268.8 330.5  Q272.8 330.5
-                272.8 326.5
-                L272.8 185 Q272.8 177
-                268.8 177
-                L125 177  Q117 177
-                117 181
-                L117 189"
+               <path d="M68.5, 110 L68.5 379.5 Q68.5 383.5
+                72.5 383.5
+                L79 383.5 "
         style="fill:none; stroke:#444; stroke-width:1" />
-               <path d="M114, 189 L117, 197 L120, 189 Z" 
+               <path d="M79, 380.5 L87, 383.5 L79, 386.5 Z" 
         fill="#333" />
             </g>
             <g>
-               <path d="M68.5, 110 L68.5 375 Q68.5 379
-                72.5 379
-                L79 379 "
+               <path d="M68.5, 110 L68.5 463 Q68.5 467
+                72.5 467
+                L79 467 "
         style="fill:none; stroke:#444; stroke-width:1" />
-               <path d="M79, 376 L87, 379 L79, 382 Z" 
+               <path d="M79, 464 L87, 467 L79, 470 Z" 
         fill="#333" />
             </g>
             <g>
-               <path d="M25, 40 L25 423.5 Q25 427.5
-                29 427.5
-                L42 427.5 "
+               <path d="M117, 497 L117 518 Q117 522
+                121 522
+                L129 522 "
         style="fill:none; stroke:#444; stroke-width:1" />
-               <path d="M42, 424.5 L50, 427.5 L42, 430.5 Z" 
+               <path d="M129, 519 L137, 522 L129, 525 Z" 
+        fill="#333" />
+            </g>
+            <g>
+               <path d="M117, 497 L117 566.5 Q117 570.5
+                121 570.5
+                L129 570.5 "
+        style="fill:none; stroke:#444; stroke-width:1" />
+               <path d="M129, 567.5 L137, 570.5 L129, 573.5 Z" 
+        fill="#333" />
+            </g>
+            <g>
+               <path d="M229.4, 570.5 L268.8 570.5  Q272.8 570.5
+                272.8 566.5
+                L272.8 425 Q272.8 417
+                268.8 417
+                L125 417  Q117 417
+                117 421
+                L117 429"
+        style="fill:none; stroke:#444; stroke-width:1" />
+               <path d="M114, 429 L117, 437 L120, 429 Z" 
+        fill="#333" />
+            </g>
+            <g>
+               <path d="M68.5, 110 L68.5 615 Q68.5 619
+                72.5 619
+                L79 619 "
+        style="fill:none; stroke:#444; stroke-width:1" />
+               <path d="M79, 616 L87, 619 L79, 622 Z" 
         fill="#333" />
             </g>
             </svg>

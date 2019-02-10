@@ -1,5 +1,5 @@
 "use strict";
-var { Random, StopWatch } = require('./utilities');
+var { Random, StopWatch } = require('./util');
 
 class Chromosome {
     constructor(n) {

@@ -1,59 +1,89 @@
-'use strict'
-
-const identifiers = require('javascript-idents').all
-const walk = require('estraverse').replace
-const helper = require('./ast-helpers')
-
+const esprima = require("esprima");
+const util = require('./util');
+const falafel = require('falafel'); // https://github.com/substack/node-falafel
+const Cfg = require("./cfg");
 
 
-const randomString = (l = 3) => {
-	let id = (Math.random() * 26 + 10 | 0).toString(36)
-	for (let i = 1; i < l; i++)
-		id += (Math.random() * 26 | 0).toString(36)
-	return id
+module.exports = function instrument(src, cfgObj, funcName) {
+
+    let covFuncName = "___covC";
+
+    // analyze CFG by locational AST
+    let cfg = new Cfg().parseStyx(cfgObj);
+
+
+    //----------- add call coverage method to every cfg nodes -----------------
+    var params = []
+    var paramsCoverage = [];
+    // http://tobyho.com/2013/12/20/falafel-source-rewriting-magicial-assert/
+    src = falafel(src, node => {
+        if (node.id && node.id.name && !funcName) {
+            funcName = node.id.name;
+        }
+        if (node.type === "FunctionDeclaration") { // function f(){...}
+            // console.log("FunctionDeclaration", node);
+        }
+        else if (node.type === "FunctionExpression") { // var f = function(){...};
+            // console.log("FunctionExpression", node);
+        }
+        else {
+            var nodes = cfg.nodesArray.filter(n => n.range && n.range[0] == node.start && n.range[1] == node.end);
+            if (nodes.length > 0) {
+                let cfgN = nodes[0];
+                // console.log("id, node.type, start, source, node", cfgN.id, node.type, node.start, node.source().toString(), node)
+
+
+                if (node.type === 'Identifier') {
+                    params.push(node.source());
+                    paramsCoverage.push(covFuncName + '(' + cfgN.id + ')');
+                }
+                else if (node.type === 'BinaryExpression') {
+                    update(node, covFuncName + '(' + cfgN.id + ') && ' + node.source());
+                }
+                else if (node.type === 'VariableDeclarator') {
+                    update(node.parent, covFuncName + '(' + cfgN.id + '); ' + node.parent.source());
+                }
+                else
+                    update(node, covFuncName + '(' + cfgN.id + '); ' + node.source());
+
+            }
+        }
+    }).toString();
+    //-------------------------------------------------------------------------
+
+
+    //----------------- create coverage method and add to source --------------
+    let paramsSeq = params.join(', ');
+    let cov =
+        `
+        /* This code automatically generated to runned on the sandbox and 
+         * evaluated by system to genrate best unit tests. Please don't change 
+         * it, because in next generation replaced by another codes. 
+         */
+
+        function run(${paramsSeq}) {
+            let path = []; 
+            function ${covFuncName}(id) { path.push(id); }
+
+            ${paramsCoverage.join("; ")}
+            ${src}
+
+            return { value: ${funcName}(${paramsSeq}) , path }
+        }
+        `;
+    //-------------------------------------------------------------------------
+
+    var ast = esprima.parse(cov, { comment: true });
+
+    return util.generate(ast);
 }
 
-const unusedName = (identifiers) => {
-	let id = '_' + randomString()
-	while (identifiers.includes(id))
-		id = '_' + randomString()
-	return id
+function update(node, code) {
+    if (node.parent && node.parent.consequent && 
+        node.type !== 'BinaryExpression') {
+        node.update("{ " + code + " }");
+    }
+    else {
+        node.update(code);
+    }
 }
-
-
-const instrument = (code, ast, cfg) => {
-	const source = (node) => code.slice(node.range[0], node.range[1])
-
-	// todo: would this be a use case for Symbols?
-	const nameOfSpy = unusedName(identifiers(ast))
-
-
-
-	let i = 0
-	const expressions = []
-
-	ast = walk(ast, {
-		enter: (n) => { },
-		leave: (n) => {
-			const start = { line: n.loc.start.line - 1, column: n.loc.start.column }
-			const end = { line: n.loc.end.line - 1, column: n.loc.end.column }
-
-			if (helper.isPrimitiveExpression(n) ||
-				helper.isNamedCallExpression(n) ||
-				helper.isVariableDeclaration(n)) {
-				//let node = cfg.nodesByLine[start.line];
-				// if (node && node.loc.start.column == start.column &&
-				// node.loc.end.line == end.line && node.loc.end.column == end.column) {
-				expressions[i] = { start, end, code: source(n) }
-				n = helper.call(helper.identifier(nameOfSpy), [n, helper.literal(i)])
-				i++
-				// }
-			}
-			return n
-		}
-	})
-
-	return { ast, expressions, nameOfSpy }
-}
-
-module.exports = instrument
