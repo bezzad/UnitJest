@@ -1,43 +1,43 @@
 exports.instrument = function (src, ast, cfgObj) {
 
-    var Instrument = require("./instrument");
-    var { ast, expressions, nameOfSpy } = Instrument(src, ast);
+    //------------------ analyze CFG by locational AST ------------------------
+    const Cfg = require("./cfg");
+    var cfg = new Cfg().parseStyx(cfgObj);
+    //-------------------------------------------------------------------------
 
-    const escodegen = require('escodegen');
-    src = escodegen.generate(ast);
+    // var Instrument = require("./instrument");
+    // var { ast, expressions, nameOfSpy } = Instrument(src, ast, cfg);
 
-
-
-
-
-
-
+    // const escodegen = require('escodegen');
+    // src = escodegen.generate(ast);
 
 
 
-    let srcLines = src.split("\r\n");
-    const lineCounter = Array.apply(null, new Array(srcLines.length)).map(Number.prototype.valueOf, 0);
+
+
+
+
+
+
+
+    //let srcLines = src.split("\r\n");
+    //const lineCounter = Array.apply(null, new Array(srcLines.length)).map(Number.prototype.valueOf, 0);
     // lineCounter[1]++; // test line coverage
 
-    const esprima = require('esprima');
-
-    //------------------ analyze CFG by code location --------------------------
-    const CFG = require("./cfg");
-    var cfg = new CFG().parseStyx(cfgObj);
-    //--------------------------------------------------------------------------
+   // const esprima = require('esprima');
 
     // var tokens = esprima.tokenize(src, { loc: true, range: true, comment: true });
     // console.log("tokens", tokens);
 
-    let nodesKeys = cfg.nodesKeys;
-    for (let n = nodesKeys.length - 1; n >= 0; n--) {
-        let node = cfg.nodes[nodesKeys[n]];
-        if (node.loc) {
-            if (!node.isStartNode) {
+    // let nodesKeys = cfg.nodesKeys;
+    // for (let n = nodesKeys.length - 1; n >= 0; n--) {
+    //     let node = cfg.nodes[nodesKeys[n]];
+    //     if (node.loc) {
+    //         if (!node.isStartNode) {
 
-            }
-        }
-    }
+    //         }
+    //     }
+    // }
     // for (let t = tokens.length - 2, tnb = tokens[t - 1], tn = tokens[t], tna = tokens[t + 1];
     //     t > 0; t-- , tnb = tokens[t - 1], tn = tokens[t], tna = tokens[t + 1]) {
 
@@ -46,12 +46,6 @@ exports.instrument = function (src, ast, cfgObj) {
     //         src = src.insert(tn.range[1], "\n\r");
     //     }
     // }
-
-    // ---------------------------- regenerate code ----------------------------
-    // https://github.com/estools/escodegen
-    // const escodegen = require('escodegen');
-    // src = escodegen.generate(ast);
-    //-------------------------------------------------------------------------
 
     return src;
 }

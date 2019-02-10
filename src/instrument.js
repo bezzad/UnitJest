@@ -21,32 +21,39 @@ const unusedName = (identifiers) => {
 }
 
 
-const instrument = (code, ast) => {
+const instrument = (code, ast, cfg) => {
 	const source = (node) => code.slice(node.range[0], node.range[1])
 
 	// todo: would this be a use case for Symbols?
 	const nameOfSpy = unusedName(identifiers(ast))
 
+
+
 	let i = 0
 	const expressions = []
 
 	ast = walk(ast, {
-		enter: (n) => {},
+		enter: (n) => { },
 		leave: (n) => {
-			const start = {line: n.loc.start.line - 1, column: n.loc.start.column}
-			const end = {line: n.loc.end.line - 1, column: n.loc.end.column}
+			const start = { line: n.loc.start.line - 1, column: n.loc.start.column }
+			const end = { line: n.loc.end.line - 1, column: n.loc.end.column }
 
-			if (helper.isPrimitiveExpression(n)) {
-				expressions[i] = {start, end, code: source(n)}
+			if (helper.isPrimitiveExpression(n) ||
+				helper.isNamedCallExpression(n) ||
+				helper.isVariableDeclaration(n)) {
+				//let node = cfg.nodesByLine[start.line];
+				// if (node && node.loc.start.column == start.column &&
+				// node.loc.end.line == end.line && node.loc.end.column == end.column) {
+				expressions[i] = { start, end, code: source(n) }
 				n = helper.call(helper.identifier(nameOfSpy), [n, helper.literal(i)])
 				i++
+				// }
 			}
-
 			return n
 		}
 	})
 
-	return {ast, expressions, nameOfSpy}
+	return { ast, expressions, nameOfSpy }
 }
 
 module.exports = instrument

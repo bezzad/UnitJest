@@ -4,15 +4,18 @@ const isNamedCallExpression = (node) =>
 	node.type === 'CallExpression'
 	&& node.callee.type === 'Identifier'
 
+const isVariableDeclaration = (node) =>
+	node.type === 'VariableDeclaration'
+
 const isPrimitiveExpression = (node) =>
 	/Expression$/.test(node.type)
 	&& !(/FunctionExpression$/.test(node.type))
 
 
 
-const identifier = (name) => ({type: 'Identifier', name})
+const identifier = (name) => ({ type: 'Identifier', name })
 
-const literal = (value) => ({type: 'Literal', value, raw: value + ''})
+const literal = (value) => ({ type: 'Literal', value, raw: value + '' })
 
 const declaration = (ids, kind = 'let') => ({
 	type: 'VariableDeclaration', kind,
