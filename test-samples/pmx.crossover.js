@@ -54,14 +54,15 @@ function pmx(mom, dad, cut1, cut2) {
 
     return child;
 };
+module.exports = pmx;
 
+// var mom = [1, 0, 3, 4, 5, 6, 7, 1];
+// //               ----------
+// var dad = [2, 5, 4, 0, 6, 7, 3, 1];
+// var res = [2, 0, 3, 4, 5, 6, 7, 1]; // expected result of PMX
 
-var mom = [1, 0, 3, 4, 5, 6, 7, 1];
-//               ----------
-var dad = [2, 5, 4, 0, 6, 7, 3, 1];
-var res = [2, 0, 3, 4, 5, 6, 7, 1]; // expected result of PMX
+// for (let i = 0; i < 100; i++) {
+//     var result = pmx(mom, dad);
+//     console.log(result);
+// }
 
-for (let i = 0; i < 100; i++) {
-    var result = pmx(mom, dad);
-    console.log(result);
-}

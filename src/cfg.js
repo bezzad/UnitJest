@@ -34,33 +34,37 @@ class Node {
     get isEndNode() { return this.type == "SuccessExit" }
 }
 
-exports.Cfg = class Cfg {
+class Cfg {
     constructor() {
         this.id = -1;
         this.func = "";
         this.edges = {};
         this.nodes = {};
+        this.nodesArray = [];
+        this.nodesByLine = {}; // todo
     }
 
     parseStyx(cfgObj) {
-        if (cfgObj && cfgObj.functions) {
-            cfgObj.functions.forEach(func => {
-                this.func = func.name;
-                this.id = func.id;
-                if (func.flowGraph) {
-                    // read nodes
-                    if (func.flowGraph.nodes) {
-                        func.flowGraph.nodes.forEach(n => {
-                            let node = new Node();
-                            node.id = n.id;
-                            node.type = n.type;
-                            this.nodes[n.id] = node;
-                        });
+        if (cfgObj && cfgObj.functions && cfgObj.functions.length > 0) {
+            let func = cfgObj.functions[0];
+            this.func = func.name;
+            this.id = func.id;
+            if (func.flowGraph) {
+                // read nodes
+                if (func.flowGraph.nodes) {
+                    for (let i = 0; i < func.flowGraph.nodes.length; i++) {
+                        let n = func.flowGraph.nodes[i];
+                        let node = new Node();
+                        node.id = n.id;
+                        node.type = n.type;
+                        this.nodes[n.id] = node;
+                        this.nodesArray.push(node);
                     }
 
                     // read edges
                     if (func.flowGraph.edges) {
-                        func.flowGraph.edges.forEach(e => {
+                        for (let i = 0; i < func.flowGraph.edges.length; i++) {
+                            let e = func.flowGraph.edges[i];
                             let edge = new Edge();
                             let beginNode = this.nodes[e.from];
                             edge.type = e.type;
@@ -94,13 +98,13 @@ exports.Cfg = class Cfg {
                             }
 
                             this.edges[edge.name] = edge;
-                        });
+                        }
                     }
                 }
-            });
+            }
+            this.setNodesByLine();
+            return this;
         }
-
-        return this;
     }
 
     get edgesKeys() {
@@ -110,4 +114,13 @@ exports.Cfg = class Cfg {
     get nodesKeys() {
         return Object.keys(this.nodes);
     }
+
+    setNodesByLine() {
+        for (let i = 0; i < this.nodesArray.length; i++) {
+            let node = this.nodesArray[i];
+            if (node.loc)
+                this.nodesByLine[node.loc.start.line] = node;
+        }
+    }
 }
+module.exports = Cfg;
