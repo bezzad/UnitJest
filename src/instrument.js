@@ -55,13 +55,7 @@ module.exports = function instrument(src, cfgObj, funcName) {
     //----------------- create coverage method and add to source --------------
     let paramsSeq = params.join(', ');
     let cov =
-        `
-        /* This code automatically generated to runned on the sandbox and 
-         * evaluated by system to genrate best unit tests. Please don't change 
-         * it, because in next generation replaced by another codes. 
-         */
-
-        function run(${paramsSeq}) {
+        `function run(${paramsSeq}) {
             let path = []; 
             function ${covFuncName}(id) { path.push(id); }
 
@@ -79,7 +73,7 @@ module.exports = function instrument(src, cfgObj, funcName) {
 }
 
 function update(node, code) {
-    if (node.parent && node.parent.consequent && 
+    if (node.parent && node.parent.consequent &&
         node.type !== 'BinaryExpression') {
         node.update("{ " + code + " }");
     }

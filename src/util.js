@@ -23,6 +23,11 @@ const regenerateOpt = {
     comments: true
 };
 
+/**
+ * Produces given Abstract Syntax Tree as javascript code
+ * @param ast The Abstract Syntax Tree to generate code from
+ * @param opt The generation options
+ */
 function generate(ast, opt) {
     opt = opt || regenerateOpt;
     return escodegen.generate(ast, opt);
