@@ -7,6 +7,7 @@
 const fs = require('fs');
 const esprima = require('esprima'); // http://esprima.org
 const util = require('./src/util');
+const Graph = require('./src/dft');
 const instrument = require('./src/instrument.js');
 const babel = require("@babel/core"); // https://babeljs.io
 const styx = require('styx'); // https://github.com/mariusschulz/styx
