@@ -7,7 +7,7 @@ function getIntegerRandom(min, max) {
     };
 };
 
-function pmx(mom, dad, cut1, cut2) {
+module.exports = function pmx(mom, dad, cut1, cut2) {
     mom = mom.slice(0);
     dad = dad.slice(0);
     var cut1 = cut1 ? cut1 : getIntegerRandom(1, mom.length / 2)();   // left side of crossover section
@@ -54,7 +54,6 @@ function pmx(mom, dad, cut1, cut2) {
 
     return child;
 };
-module.exports = pmx;
 
 // var mom = [1, 0, 3, 4, 5, 6, 7, 1];
 // //               ----------

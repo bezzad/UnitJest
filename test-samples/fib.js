@@ -1,6 +1,6 @@
 var fibcache = {};
 // fast Fibonacci 
-function fib(i) {
+module.exports = function fibonacci(i) {
     let t;
     switch (i) {
         case 0:
@@ -17,4 +17,3 @@ function fib(i) {
             };
     };
 }; 
-module.exports = fib;

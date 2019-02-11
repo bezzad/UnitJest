@@ -6,8 +6,10 @@
 
 const fs = require('fs');
 const esprima = require('esprima'); // http://esprima.org
-const util = require('./src/util');
-const Graph = require('./src/dft');
+const util = require('./src/util'); // utilities
+const Graph = require('./src/dft'); // Depth First Traversal
+const GA = require('./src/ga'); // Genetic Algorithm
+const { Random, StopWatch } = require('./src/util'); // utilities
 const instrument = require('./src/instrument.js');
 const babel = require("@babel/core"); // https://babeljs.io
 const styx = require('styx'); // https://github.com/mariusschulz/styx
@@ -160,7 +162,26 @@ console.info("All CFG branches path found:", JSON.stringify(paths));
 
 
 //------------------ Find test case by Genetic Algorithm -------------------
+//                    N , Pop, SR, MR, ReGen, CR
+// best practice: GA(200, 500, 30, 60, 10000, 75); 4775ms
+// fast practice: GA(200, 500, 10, 50, 10000, 75); 2659ms
+StopWatch.start();
+// ------------------------------------------------------
+//               N , Pop, SR, MR, ReGen, CR
+var ga = new GA(200, 500, 10, 50, 10000, 75);
 
+// N:       Number of Queens in the N×N Chess Board
+// Pop:     Population size
+// SR:      Selection probability %
+// MR:      Mutation probability %
+// ReGen:   Regeneration limitation
+// CR:      Max Chromosomes Convergence Rate % 
+
+var result = ga.Start();
+console.log("Result:", result);
+console.log("Generation:", ga.RegenerationCounter)
+// ------------------------------------------------------
+StopWatch.stop();
 //--------------------------------------------------------------------------
 
 

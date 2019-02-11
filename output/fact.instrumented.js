@@ -5,7 +5,7 @@ function run(num) {
         path.push(id);
     }
     ___covC(4);
-    fact = function (num) {
+    module.exports = function fact(num) {
         if (___covC(7) && num < 0) {
             ___covC(8);
             return 0;

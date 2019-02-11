@@ -1,5 +1,5 @@
 // reference: page 4 of https://ieeexplore.ieee.org/document/6354714
-function triangleClassification(x, y, z) {
+module.exports = function triangleClassification(x, y, z) {
     if ((x + y > z) && (y + z > x) && (z + x > y)) {
         if ((x != y) && (y != z) & (z != x)) {
             return "Triangle is scalene";
@@ -15,4 +15,3 @@ function triangleClassification(x, y, z) {
         return "Not a triangle";
     }
 }
-module.exports = triangleClassification;
