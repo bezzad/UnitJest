@@ -118,7 +118,8 @@ viz.renderString(graphviz)
     .then(result => {
         let file = outputPath + "cfg.svg";
         fs.writeFile(file, result, "utf-8", (err) => {
-            if (err) throw err;
+            if (err)
+                throw err;
             console.log(`The ${file} file has been saved`);
         });
     })
@@ -132,14 +133,38 @@ viz.renderString(graphviz)
 //--------------------------------------------------------------------------
 
 
-//-------------- modify AST by injecting extra instrumenting code --------------
-var source = instrument(src, cfgObj);
+//----------- modify AST by injecting extra instrumenting code -------------
+var { code, cfg, params } = instrument(src, cfgObj);
 let insPath = outputPath + `${fileName}.instrumented.${fileExt}`;
-fs.writeFile(insPath, source, "utf-8", (err) => {
-    if (err) throw err;
+fs.writeFile(insPath, code, "utf-8", (err) => {
+    if (err)
+        throw err;
     console.log(`The instrumented file has been saved at ${insPath}`);
 });
 //--------------------------------------------------------------------------
+
+
+//---------------- Find all branches in Control-Flow-Graph -----------------
+let graph = new Graph(cfg.nodesArray.length);
+let edges = cfg.edgesKeys.map(k => k.split("-"));
+for (let e = 0; e < edges.length; e++) {
+    let f = parseInt(edges[e][0]);
+    let t = parseInt(edges[e][1]);
+    graph.addEdge(f, t);
+}
+let s = cfg.nodesArray.find(n => n.isStartNode).id;
+let d = cfg.nodesArray.find(n => n.isEndNode).id;
+var paths = graph.getPaths(s, d);
+console.info("All CFG branches path found:", JSON.stringify(paths));
+//--------------------------------------------------------------------------
+
+
+//------------------ Find test case by Genetic Algorithm -------------------
+
+//--------------------------------------------------------------------------
+
+
+
 
 console.log("----------- END -------------");
 // $ jest test.js --collectCoverage

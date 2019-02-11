@@ -69,7 +69,7 @@ module.exports = function instrument(src, cfgObj, funcName) {
 
     var ast = esprima.parse(cov, { comment: true });
 
-    return util.generate(ast);
+    return { code: util.generate(ast), cfg, params };
 }
 
 function update(node, code) {
