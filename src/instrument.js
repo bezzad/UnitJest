@@ -16,7 +16,7 @@ module.exports = function instrument(src, cfgObj, funcName) {
     var params = []
     var paramsCoverage = [];
     // http://tobyho.com/2013/12/20/falafel-source-rewriting-magicial-assert/
-    src = falafel(src, node => {
+    src = falafel(src, { attachComment: true, jsx: true, sourceType: "module" }, node => {
         if (node.id && node.id.name && !funcName) {
             funcName = node.id.name;
         }
@@ -30,7 +30,7 @@ module.exports = function instrument(src, cfgObj, funcName) {
             var nodes = cfg.nodesArray.filter(n => n.range && n.range[0] == node.start && n.range[1] == node.end);
             if (nodes.length > 0) {
                 let cfgN = nodes[0];
-                // console.log("id, node.type, start, source, node", cfgN.id, node.type, node.start, node.source().toString(), node)
+                console.log("id, node.type, start, source, node", cfgN.id, node.type, node.start, node.source().toString(), node)
 
 
                 if (node.type === 'Identifier') {
@@ -55,13 +55,7 @@ module.exports = function instrument(src, cfgObj, funcName) {
     //----------------- create coverage method and add to source --------------
     let paramsSeq = params.join(', ');
     let cov =
-        `
-        /* This code automatically generated to runned on the sandbox and 
-         * evaluated by system to genrate best unit tests. Please don't change 
-         * it, because in next generation replaced by another codes. 
-         */
-
-        function run(${paramsSeq}) {
+        `function run(${paramsSeq}) {
             let path = []; 
             function ${covFuncName}(id) { path.push(id); }
 
@@ -75,11 +69,11 @@ module.exports = function instrument(src, cfgObj, funcName) {
 
     var ast = esprima.parse(cov, { comment: true });
 
-    return util.generate(ast);
+    return { code: util.generate(ast), cfg, params };
 }
 
 function update(node, code) {
-    if (node.parent && node.parent.consequent && 
+    if (node.parent && node.parent.consequent &&
         node.type !== 'BinaryExpression') {
         node.update("{ " + code + " }");
     }

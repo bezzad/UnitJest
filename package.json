@@ -1,6 +1,6 @@
 {
   "name": "unitjest",
-  "version": "1.0.3",
+  "version": "1.2.0",
   "description": "Automation unit test generation in JavaScript (ES2015) by Jest Framework",
   "main": "./index.js",
   "scripts": {
@@ -38,6 +38,7 @@
     "@babel/plugin-transform-classes": "^7.2.2",
     "@babel/plugin-transform-for-of": "^7.2.0",
     "@babel/plugin-transform-spread": "^7.2.2",
+    "doctrine": "^3.0.0",
     "escodegen": "^1.11.0",
     "esprima": "^4.0.1",
     "falafel": "^2.1.0",
