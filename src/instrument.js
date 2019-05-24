@@ -16,7 +16,7 @@ module.exports = function instrument(src, cfgObj, funcName) {
     var params = []
     var paramsCoverage = [];
     // http://tobyho.com/2013/12/20/falafel-source-rewriting-magicial-assert/
-    src = falafel(src, node => {
+    src = falafel(src, { attachComment: true, jsx: true, sourceType: "module" }, node => {
         if (node.id && node.id.name && !funcName) {
             funcName = node.id.name;
         }
@@ -30,7 +30,7 @@ module.exports = function instrument(src, cfgObj, funcName) {
             var nodes = cfg.nodesArray.filter(n => n.range && n.range[0] == node.start && n.range[1] == node.end);
             if (nodes.length > 0) {
                 let cfgN = nodes[0];
-                // console.log("id, node.type, start, source, node", cfgN.id, node.type, node.start, node.source().toString(), node)
+                console.log("id, node.type, start, source, node", cfgN.id, node.type, node.start, node.source().toString(), node)
 
 
                 if (node.type === 'Identifier') {
@@ -69,7 +69,7 @@ module.exports = function instrument(src, cfgObj, funcName) {
 
     var ast = esprima.parse(cov, { comment: true });
 
-    return util.generate(ast);
+    return { code: util.generate(ast), cfg, params };
 }
 
 function update(node, code) {

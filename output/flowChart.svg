@@ -1,21 +1,21 @@
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
                 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" 
-                width="281" height="659" shape-rendering="optimizeSpeed">
+                width="398" height="659" shape-rendering="optimizeSpeed">
                 
             <g>
                 <rect x="50" y="80"
-            width="206" height="30"
+            width="323" height="30"
             style="fill:#a5d6a7; stroke:#444; stroke-width:1" />
                     
                 <line x1="60" y1="80" x2="60" y2="110"
                 style="fill:#a5d6a7; stroke:#444; stroke-width:1" />
-                <line x1="246" y1="80" x2="246" y2="110"
+                <line x1="363" y1="80" x2="363" y2="110"
                 style="fill:#a5d6a7; stroke:#444; stroke-width:1" />
              
-                <title>fact = function(num)</title>
+                <title>module.exports = function fact(num)</title>
             <text x="75" y="100"
                 font-family="monospace" font-size="13" fill="#222">
-                <tspan x="75" y="100">fact = function(num)</tspan>
+                <tspan x="75" y="100">module.exports = function fact(num)</tspan>
             </text>
                 
             </g><g>

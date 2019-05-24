@@ -1,6 +1,6 @@
 // ------------ TEST ------------------
 const assert = require("assert");
-const Graph = require('./dft');
+const Graph = require('../src/dft');
 
 // Create a graph given in the above diagram 
 var g = new Graph(4);

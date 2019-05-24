@@ -6,8 +6,11 @@
 
 const fs = require('fs');
 const esprima = require('esprima'); // http://esprima.org
-const util = require('./src/util');
-const Graph = require('./src/dft');
+const util = require('./src/util'); // utilities
+const Graph = require('./src/dft'); // Depth First Traversal
+const GA = require('./src/ga'); // Genetic Algorithm
+const docParser = require('./src/doc'); // document parser
+const { Random, StopWatch } = require('./src/util'); // utilities
 const instrument = require('./src/instrument.js');
 const babel = require("@babel/core"); // https://babeljs.io
 const styx = require('styx'); // https://github.com/mariusschulz/styx
@@ -29,11 +32,17 @@ console.info(`The "${fileName}.${fileExt}" source codes loaded`);
 //--------------------------------------------------------------------------
 
 
+//--------------------- Parse function params type -----------------------------------
+var params = docParser(src);
+console.info(`function `);
+//--------------------------------------------------------------------------
+
+
 //---------------------- Parse JavaScript into AST -------------------------
 // convert any newest ES to ES5
 var { code } = babel.transformSync(src, {
     ast: false,
-    code: true,
+    code: true, 
     plugins: [
         // EntryTarget
         '@babel/plugin-transform-classes',
@@ -118,7 +127,8 @@ viz.renderString(graphviz)
     .then(result => {
         let file = outputPath + "cfg.svg";
         fs.writeFile(file, result, "utf-8", (err) => {
-            if (err) throw err;
+            if (err)
+                throw err;
             console.log(`The ${file} file has been saved`);
         });
     })
@@ -132,14 +142,57 @@ viz.renderString(graphviz)
 //--------------------------------------------------------------------------
 
 
-//-------------- modify AST by injecting extra instrumenting code --------------
-var source = instrument(src, cfgObj);
+//----------- modify AST by injecting extra instrumenting code -------------
+var { code, cfg, params } = instrument(src, cfgObj);
 let insPath = outputPath + `${fileName}.instrumented.${fileExt}`;
-fs.writeFile(insPath, source, "utf-8", (err) => {
-    if (err) throw err;
+fs.writeFile(insPath, code, "utf-8", (err) => {
+    if (err)
+        throw err;
     console.log(`The instrumented file has been saved at ${insPath}`);
 });
 //--------------------------------------------------------------------------
+
+
+//---------------- Find all branches in Control-Flow-Graph -----------------
+let graph = new Graph(cfg.nodesArray.length);
+let edges = cfg.edgesKeys.map(k => k.split("-"));
+for (let e = 0; e < edges.length; e++) {
+    let f = parseInt(edges[e][0]);
+    let t = parseInt(edges[e][1]);
+    graph.addEdge(f, t);
+}
+let s = cfg.nodesArray.find(n => n.isStartNode).id;
+let d = cfg.nodesArray.find(n => n.isEndNode).id;
+var paths = graph.getPaths(s, d);
+console.info("All CFG branches path found:", JSON.stringify(paths));
+//--------------------------------------------------------------------------
+
+
+//------------------ Find test case by Genetic Algorithm -------------------
+//                    N , Pop, SR, MR, ReGen, CR
+// best practice: GA(200, 500, 30, 60, 10000, 75); 4775ms
+// fast practice: GA(200, 500, 10, 50, 10000, 75); 2659ms
+StopWatch.start();
+// ------------------------------------------------------
+//               N , Pop, SR, MR, ReGen, CR
+var ga = new GA(200, 500, 10, 50, 10000, 75);
+
+// N:       Number of Queens in the N×N Chess Board
+// Pop:     Population size
+// SR:      Selection probability %
+// MR:      Mutation probability %
+// ReGen:   Regeneration limitation
+// CR:      Max Chromosomes Convergence Rate % 
+
+var result = ga.Start();
+console.log("Result:", result);
+console.log("Generation:", ga.RegenerationCounter)
+// ------------------------------------------------------
+StopWatch.stop();
+//--------------------------------------------------------------------------
+
+
+
 
 console.log("----------- END -------------");
 // $ jest test.js --collectCoverage
