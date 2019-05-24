@@ -1,6 +1,6 @@
 {
   "name": "unitjest",
-  "version": "1.0.3",
+  "version": "1.2.0",
   "description": "Automation unit test generation in JavaScript (ES2015) by Jest Framework",
   "main": "./index.js",
   "scripts": {
