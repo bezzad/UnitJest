@@ -9,6 +9,7 @@ const esprima = require('esprima'); // http://esprima.org
 const util = require('./src/util'); // utilities
 const Graph = require('./src/dft'); // Depth First Traversal
 const GA = require('./src/ga'); // Genetic Algorithm
+const docParser = require('./src/doc'); // document parser
 const { Random, StopWatch } = require('./src/util'); // utilities
 const instrument = require('./src/instrument.js');
 const babel = require("@babel/core"); // https://babeljs.io
@@ -31,11 +32,17 @@ console.info(`The "${fileName}.${fileExt}" source codes loaded`);
 //--------------------------------------------------------------------------
 
 
+//--------------------- Parse function params type -----------------------------------
+var params = docParser(src);
+console.info(`function `);
+//--------------------------------------------------------------------------
+
+
 //---------------------- Parse JavaScript into AST -------------------------
 // convert any newest ES to ES5
 var { code } = babel.transformSync(src, {
     ast: false,
-    code: true,
+    code: true, 
     plugins: [
         // EntryTarget
         '@babel/plugin-transform-classes',
